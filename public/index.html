@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NovaBlog Studio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <div class="brand-icon">N</div>
+          <div>
+            <h1>NovaBlog</h1>
+            <p>Publishing Studio</p>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <button class="nav-item active">Dashboard</button>
+          <button class="nav-item" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">Nouvel article</button>
+          <button class="nav-item" onclick="window.location.href='/api-docs'">Swagger</button>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-tip">
+          <span class="tip-label">Conseil</span>
+          <p>Utilise une image forte, un titre clair et une bonne catégorie pour attirer le lecteur.</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div>
+          <p class="mini-title">Édition & publication</p>
+          <h2>Gestion des articles</h2>
+        </div>
+        <div class="topbar-actions">
+          <button class="ghost-btn" id="resetBtnTop">Réinitialiser</button>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-left">
+          <span class="hero-chip">Dark editorial experience</span>
+          <h3>Crée, organise et publie des articles avec une expérience plus moderne</h3>
+          <p>
+            Une interface plus agréable pour administrer ton blog avec une vraie logique de publication.
+          </p>
+        </div>
+        <div class="hero-right">
+          <div class="hero-stat">
+            <span>Total</span>
+            <strong id="statTotal">0</strong>
+          </div>
+          <div class="hero-stat">
+            <span>Catégories</span>
+            <strong id="statCategories">0</strong>
+          </div>
+          <div class="hero-stat">
+            <span>Auteurs</span>
+            <strong id="statAuthors">0</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h3>Mode publication</h3>
+            <p>Compose un article avec visuel de couverture, contenu riche et métadonnées.</p>
+          </div>
+        </div>
+
+        <form id="articleForm" class="article-form" enctype="multipart/form-data">
+          <input type="hidden" id="articleId" />
+
+          <div class="editor-layout">
+            <div class="editor-main">
+              <div class="input-group">
+                <label for="titre">Titre</label>
+                <input type="text" id="titre" placeholder="Titre de l’article" required />
+              </div>
+
+              <div class="input-group">
+                <label for="contenu">Contenu</label>
+                <textarea id="contenu" rows="12" placeholder="Rédige ton article..." required></textarea>
+              </div>
+            </div>
+
+            <div class="editor-side">
+              <div class="input-group">
+                <label for="auteur">Auteur</label>
+                <input type="text" id="auteur" placeholder="Nom de l’auteur" required />
+              </div>
+
+              <div class="input-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" required />
+              </div>
+
+              <div class="input-group">
+                <label for="categorie">Catégorie</label>
+                <input type="text" id="categorie" placeholder="Backend, Tech..." required />
+              </div>
+
+              <div class="input-group">
+                <label for="tags">Tags</label>
+                <input type="text" id="tags" placeholder="nodejs, express, api" />
+              </div>
+
+              <div class="input-group">
+                <label for="image">Image de couverture</label>
+                <input type="file" id="image" accept="image/png,image/jpeg,image/jpg,image/webp" />
+                <small class="helper-text">JPG, JPEG, PNG, WEBP — max 3 Mo</small>
+              </div>
+
+              <div class="cover-preview-box">
+                <img id="coverPreview" class="cover-preview hidden" alt="Aperçu de couverture" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Publier l’article</button>
+            <button type="button" class="secondary-btn" id="cancelEdit">Annuler</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h3>Explorer les articles</h3>
+            <p>Recherche, filtre, trie et parcours ta bibliothèque d’articles.</p>
+          </div>
+        </div>
+
+        <div class="toolbar-grid">
+          <div class="input-group">
+            <label for="searchQuery">Recherche</label>
+            <input type="text" id="searchQuery" placeholder="Titre ou contenu..." />
+          </div>
+
+          <div class="input-group">
+            <label for="filterCategorie">Catégorie</label>
+            <input type="text" id="filterCategorie" placeholder="Catégorie" />
+          </div>
+
+          <div class="input-group">
+            <label for="filterAuteur">Auteur</label>
+            <input type="text" id="filterAuteur" placeholder="Auteur" />
+          </div>
+
+          <div class="input-group">
+            <label for="filterDate">Date</label>
+            <input type="date" id="filterDate" />
+          </div>
+
+          <div class="input-group">
+            <label for="sortDate">Tri par date</label>
+            <select id="sortDate">
+              <option value="desc">Plus récent d’abord</option>
+              <option value="asc">Plus ancien d’abord</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions compact">
+          <button class="primary-btn" id="searchBtn">Rechercher</button>
+          <button class="secondary-btn" id="filterBtn">Appliquer filtres</button>
+          <button class="ghost-btn" id="resetBtn">Tout réinitialiser</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head articles-head">
+          <div>
+            <h3>Publications</h3>
+            <p>Affichage éditorial des articles disponibles.</p>
+          </div>
+          <span class="count-pill" id="articleCount">0 article</span>
+        </div>
+
+        <div id="articlesContainer" class="articles-grid"></div>
+
+        <div class="pagination-wrap">
+          <button class="ghost-btn" id="prevPageBtn">Précédent</button>
+          <span class="page-indicator" id="pageIndicator">Page 1</span>
+          <button class="ghost-btn" id="nextPageBtn">Suivant</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <div id="articleModal" class="modal hidden">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="closeModalBtn">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
