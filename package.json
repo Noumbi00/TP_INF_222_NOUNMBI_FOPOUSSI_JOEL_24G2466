@@ -1,7 +1,7 @@
 {
   "name": "blog-api",
   "version": "1.0.0",
-  "description": "API backend simple pour gérer un blog avec Express, SQLite et Swagger",
+  "description": "API backend moderne pour la gestion d’un blog avec Express, SQLite, Swagger et interface web",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -12,14 +12,15 @@
     "express",
     "sqlite",
     "swagger",
-    "blog-api"
+    "blog",
+    "api"
   ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "multer": "^2.1.1",
+    "multer": "^1.4.5-lts.1",
     "sqlite3": "^5.1.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
